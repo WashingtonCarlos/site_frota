@@ -2,7 +2,7 @@
     session_start();
     include_once("seguraca.php");
     echo "Bem Vindo Administrador: </br>";
-    echo "Matricula: ".$_SESSION['cpf']." ".$_SESSION['nomeUsuario'];
+    echo "CPF: ".$_SESSION['cpf']."  Nome: ".$_SESSION['nomeUsuario'];
 
 ?>
 <br>
@@ -26,11 +26,6 @@
 </head>
 
 <body>
-
-    <?php
-        $resultado = mysqli_query($conectar,"SELECT * FROM funcionario ORDER BY 'id'");
-        $linhas = mysqli_num_rows($resultado); 
-    ?>
 
     <div class="container">
         <form class="col-md-12" method="POST" action="processar/cad_usuario.php">
