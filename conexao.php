@@ -1,7 +1,6 @@
 <?php
-$conectar = mysqli_connect("localhost", "root", "W@s159874", "frota", "3306");
+$conectar = mysqli_connect("localhost", "root", "", "frota");
 if (!$conectar) {
-    die("Erro ao conectar ao banco: " . mysqli_error());
+    die("Erro ao conectar ao banco: " . mysqli_error($conectar));
 }
-echo "Conectado com sucesso";
 ?> 

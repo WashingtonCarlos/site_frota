@@ -3,7 +3,7 @@
     include_once("seguraca.php");
     include_once("conexao.php");
     echo "Bem Vindo Administrador: </br>";
-    echo "CPF: ".$_SESSION['cpf']." ".$_SESSION['nomeUsuario'];
+    echo "CPF: ".$_SESSION['cpf']."  Nome: ".$_SESSION['nomeUsuario'];
 
 ?>
 <br>
@@ -56,7 +56,6 @@
                     <table id="mytable" class="table table-bordred table-striped">
 
                         <thead>
-
                             <th><input type="checkbox" id="checkall" /></th>
                             <th> ID </th>
                             <th>nome</th>
@@ -65,6 +64,7 @@
                             <th>Nivel de Acesso</th>
                             <th>Editar</th>
                             <th>Deletar</th>
+                            <th>Visualizar</th>
                         </thead>
                         <tbody>
 
@@ -76,11 +76,12 @@
                                     echo "<td>".$linhas['id']."</td>";
                                     echo "<td>".$linhas['nome']."</td>";
                                     echo "<td>".$linhas['cpf']."</td>";
-                                    echo "<td>".$linhas['inputEmail']."</td>";
+                                    echo "<td>".$linhas['email']."</td>";
                                     echo "<td class = 'text-center'>".$linhas['nivel_acesso_id']."</td>";
-                                    echo "                                <td>
+                                    ?>
+                                                               <td>
                                         <p data-placement='top' data-toggle='tooltip' title='Editar'>
-                                            <a href='#'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal'
+                                            <a href='editar_usuario.php?&id=<?php  echo $linhas['id']; ?>'><button class='btn btn-primary btn-xs' data-title='Edit' data-toggle='modal'
                                                 data-target='#edit'>
                                                 <span
                                                     class='glyphicon glyphicon-pencil'>
@@ -96,10 +97,20 @@
                                                 </span>
                                             </button></a>
                                         </p>
-                                        </td>";
-                                    echo "</tr>";
+                                        </td>
+                                        <td>
+                                        <p data-placement='top' data-toggle='tooltip' title='Visualizar'>
+                                            <a href = 'visualiza_usuario.php?&id=<?php  echo $linhas['id']; ?>'><button class='btn btn-info btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete'>
+                                                <span class='glyphicon glyphicon-eye-open'>
+                                                
+                                                </span>
+                                            </button></a>
+                                        </p>
+                                        </td>
+                                    </tr>
+                                    <?php
                                 } 
-                            ?>
+                                ?>
                         </tbody>
 
                     </table>
