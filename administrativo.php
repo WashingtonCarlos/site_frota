@@ -91,7 +91,7 @@
                                         </td>
                                         <td>
                                         <p data-placement='top' data-toggle='tooltip' title='Deletar'>
-                                            <a href = '#'><button class='btn btn-danger btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete'>
+                                            <a href = 'processar/del_usuario.php?&id=<?php  echo $linhas['id']; ?>'><button class='btn btn-danger btn-xs' data-title='Delete' data-toggle='modal' data-target='#delete'>
                                                 <span class='glyphicon glyphicon-trash'>
                                                 
                                                 </span>
