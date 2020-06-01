@@ -29,8 +29,22 @@
 <body>
 
     <?php
+        //verificar se está sendo passado pela URL a página atual, senão é atribuido a pagina 
+        $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+        // selecionado dos os nomes dos funcionarios da tabela
         $resultado = mysqli_query($conectar,"SELECT * FROM funcionario ORDER BY 'id'");
-        $linhas = mysqli_num_rows($resultado); 
+        //contar a quantidade de pessoas cadastradas
+        $linhas = mysqli_num_rows($resultado);
+        //quantidade de nomes por pagina 
+        $qtd_pagina = 6;
+        //calcular a quantidade de paginas necessarias para apresentação dos funcionarios cadastrados
+        $num_paginas = ceil($linhas/$qtd_pagina);
+        //calcular o inicio da visualização
+        $inicio = ($qtd_pagina*$pagina)-$qtd_pagina;
+        //selecionar os funcionarios a serem apresentados por pagina
+        $result_func = mysqli_query($conectar,"SELECT * FROM funcionario LIMIT $inicio,$qtd_pagina");
+        $linhas = mysqli_num_rows($result_func);
+
     ?>
 
     <div class="container">
@@ -70,7 +84,7 @@
 
                             <?php
                                 //lista de dados do banco
-                                while($linhas = mysqli_fetch_array($resultado)){
+                                while($linhas = mysqli_fetch_array($result_func)){
                                     echo "<tr>";
                                     echo "<td><input type='checkbox' class='checkthis' /></td>";
                                     echo "<td>".$linhas['id']."</td>";
@@ -116,14 +130,43 @@
                     </table>
 
                     <div class="clearfix"></div>
+                    <?php 
+                        //verificar a pagina anterior e posterior
+                        $pagina_anterior = $pagina - 1;
+                        $pagina_posterior = $pagina + 1;
+                    ?>
                     <ul class="pagination pull-right">
-                        <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        <li>
+                            <?php 
+                                if ($pagina_anterior != 0){ ?>
+                                    <a href="administrativo.php?pagina=<?php echo $pagina_anterior; ?>">
+                                        <span class="glyphicon glyphicon-chevron-left">
+                                        </span>
+                                    </a>
+                               <?php } else { ?>
+                                    <span class="glyphicon glyphicon-chevron-left">
+                                    </span>
+                               <?php } ?>
+
+                        </li>
+                        <?php 
+                            //apresentação da paginação 
+                            for ($i=1; $i < $num_paginas + 1; $i++) { ?>
+                                <li><a href="administrativo.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                        <?php } ?>
+                        
+                        <li>
+                        <?php 
+                                if ($pagina_posterior <= $num_paginas){ ?>
+                                    <a href="administrativo.php?pagina=<?php echo $pagina_posterior; ?>">
+                                        <span class="glyphicon glyp~~hicon-chevron-right">
+                                        </span>
+                                    </a>
+                                    <?php } else { ?>
+                                         <span class="glyphicon glyphicon-chevron-right">
+                                        </span>
+                                    <?php } ?>
+                        </li>
                     </ul>
 
                 </div>
